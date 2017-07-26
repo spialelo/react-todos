@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateToDo from './create-todo';
+import CreateTodo from './create-todo';
 import TodosList from './todos-list';
 
 
@@ -35,7 +35,7 @@ class App extends React.Component {
     return (
       <div>
       <h2>Rendering from App.</h2>
-       <CreateToDo /> 
+       <CreateTodo /> 
       <TodosList todos = {this.state.todos} />
       </div>  
     );
