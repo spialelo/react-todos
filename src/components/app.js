@@ -4,15 +4,15 @@ import TodosList from "./todos-list";
 
 const todos = [
   {
-    task: "make React tutorial",
+    task: "Complete React tutorial",
     isCompleted: false
   },
   {
-    task: "eat dinner",
+    task: "Run daily mile",
     isCompleted: true
   },
   {
-    task: "review React and Webpack",
+    task: "Review React and Webpack",
     isCompleted: true
   }
 ];
@@ -28,7 +28,6 @@ class App extends React.Component {
   createTask(task) {
     {
       /*tutorial way
-    
     this.state.todos.push({
     task,
     isCompleted: false
@@ -36,7 +35,6 @@ class App extends React.Component {
     this.setState({todos: this.state.todos});
      */
     }
-
     const currToDos = { ...this.state.todos };
     this.state.todos.push({
       task,
@@ -45,12 +43,24 @@ class App extends React.Component {
     this.setState({ todos: this.state.todos });
   }
 
+  toggleTask(task) {
+    {
+      /*tutorial uses find in lodash. probably could use filter method of arrays*/
+    }
+    const foundTodo = _.find(this.state.todos, todo => todo.task == task);
+    foundTodo.isCompleted = !foundTodo.isCompleted;
+    this.setState({ todos: this.state.todos });
+  }
+
   render() {
     return (
       <div>
         <h2>Rendering from App.</h2>
         <CreateTodo createTask={this.createTask.bind(this)} />
-        <TodosList todos={this.state.todos} />
+        <TodosList
+          todos={this.state.todos}
+          toggleTask={this.toggleTask.bind(this)}
+        />
       </div>
     );
   }
