@@ -14,6 +14,7 @@ class TodosListItem extends React.Component {
 
     const taskStyle = {
       color: isCompleted ? "green" : "red",
+      fontStyle: isCompleted ? "italic" : "normal",
       cursor: "pointer"
     };
 
@@ -28,7 +29,7 @@ class TodosListItem extends React.Component {
     if (this.state.isEditing) {
       return (
         <td>
-          <button>Save</button>
+          <button onClick={this.onSaveClick.bind(this)}>Save</button>
           <button onClick={this.onCancelClick.bind(this)}>Cancel</button>
         </td>
       );
@@ -50,6 +51,11 @@ class TodosListItem extends React.Component {
   onCancelClick() {
     const currEditState = this.state.isEditing;
     this.setState({ isEditing: false });
+  }
+
+  onSaveClick() {
+    const currEditState = this.state.isEditing;
+    this.setState({ isEditing: true });
   }
 
   render() {
