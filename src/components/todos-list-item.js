@@ -18,6 +18,16 @@ class TodosListItem extends React.Component {
       cursor: "pointer"
     };
 
+    if (this.state.isEditing) {
+      return (
+        <td>
+          <form onSubmit={this.onSaveClick.bind(this)}>
+            <input type="text" defaultValue={task} ref="editInput" />
+          </form>
+        </td>
+      );
+    }
+
     return (
       <td style={taskStyle} onClick={this.props.toggleTask.bind(this, task)}>
         {task}
@@ -38,7 +48,7 @@ class TodosListItem extends React.Component {
     return (
       <td>
         <button onClick={this.onEditClick.bind(this)}>Edit</button>
-        <button>Delete</button>
+        <button onClick={this.onDeleteClick.bind(this)}>Delete</button>
       </td>
     );
   }
@@ -53,9 +63,19 @@ class TodosListItem extends React.Component {
     this.setState({ isEditing: false });
   }
 
-  onSaveClick() {
-    const currEditState = this.state.isEditing;
-    this.setState({ isEditing: true });
+  onSaveClick(event) {
+    event.preventDefault();
+    const oldTask = this.props.task;
+    const newTask = this.refs.editInput.value;
+    this.props.saveTask(oldTask, newTask);
+    this.setState({ isEditing: false });
+  }
+
+  onDeleteClick(event) {
+    event.preventDefault();
+    const taskToDelete = this.props.task;
+    this.props.deleteTask(taskToDelete);
+    this.setState({ todos: this.state.todos });
   }
 
   render() {
